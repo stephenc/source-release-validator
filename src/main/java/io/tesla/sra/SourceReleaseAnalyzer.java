@@ -143,7 +143,7 @@ public class SourceReleaseAnalyzer {
     mavenCore.close();
 
     String releaseRevision = p.getProperty("buildNumber");
-    System.out.println("Git revision of release as determined from maven-core-3.1.1.jar:org/apache/maven/messages/build.properties(buildNumber):");
+    System.out.println("Git revision of release as determined from maven-core-"+version+".jar:org/apache/maven/messages/build.properties(buildNumber):");
     System.out.println(releaseRevision);
     System.out.println();
 
@@ -287,8 +287,16 @@ public class SourceReleaseAnalyzer {
   }
 
   public static void main(String[] args) throws Exception {
-    String url2 = "https://repository.apache.org/content/repositories/maven-065/";
-    SourceReleaseAnalyzer s = new SourceReleaseAnalyzer("org.apache.maven", "apache-maven", "3.1.1", url2);
+    if (args.length != 2) {
+      System.out.println("Syntax: sra staging-repo-url release-version-number");
+      System.out.println();
+      System.out.println("staging-repo-url          The URL of the staging repository to validate");
+      System.out.println("                          e.g. https://repository.apache.org/content/repositories/maven-1326");
+      System.out.println("release-version-number    The version number of the release to validate");
+      System.exit(1);
+    }
+    String url2 = args[0];
+    SourceReleaseAnalyzer s = new SourceReleaseAnalyzer("org.apache.maven", "apache-maven", args[1], url2);
     s.sebbalize();
   }
 }
