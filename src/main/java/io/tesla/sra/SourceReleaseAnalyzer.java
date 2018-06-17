@@ -150,7 +150,7 @@ public class SourceReleaseAnalyzer {
     // Retrieve the source revision
     File gitCheckout = new File(temp, "source-checkout");
     if (gitCheckout.exists() == false) {
-      GitProvider git = new GitProvider("https://git-wip-us.apache.org/repos/asf/maven.git", releaseRevision, gitCheckout);
+      GitProvider git = new GitProvider("https://gitbox.apache.org/repos/asf/maven.git", releaseRevision, gitCheckout);
       git.checkout();
     }
 
